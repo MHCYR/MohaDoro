@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit';
-
-const logo = new URL('../assets/open-wc-logo.svg', import.meta.url).href;
+import './components/doro-nav.js';
+import { style } from './styles.js';
 
 export class MohaDoro extends LitElement {
   static get properties() {
@@ -10,48 +10,41 @@ export class MohaDoro extends LitElement {
   }
 
   static get styles() {
-    return css`
-      :host {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        font-size: calc(10px + 2vmin);
-        color: #1a2b42;
-        max-width: 960px;
-        margin: 0 auto;
-        text-align: center;
-        background-color: var(--moha-doro-background-color);
-      }
-
-      main {
-        flex-grow: 1;
-      }
-
-      .logo {
-        margin-top: 36px;
-        animation: app-logo-spin infinite 20s linear;
-      }
-
-      @keyframes app-logo-spin {
-        from {
-          transform: rotate(0deg);
+    return [
+      css`
+        .container {
+          min-height: 100vh;
+          background-color: var(--black);
+          color: whitesmoke;
+          display: grid;
+          grid-template-columns: repeat(10, 1fr);
+          grid-template-rows: 75px auto 25px;
+          row-gap: 2em;
         }
-        to {
-          transform: rotate(360deg);
+        doro-nav {
+          grid-column-start: 1;
+          grid-column-end: 11;
+          grid-row-start: 1;
+          grid-row-end: 2;
         }
-      }
+        .main {
+          grid-column-start: 3;
+          grid-column-end: 9;
+          grid-row-start: 2;
+          grid-row-end: 3;
+          background-color: var(--brown);
+        }
 
-      .app-footer {
-        font-size: calc(12px + 0.5vmin);
-        align-items: center;
-      }
-
-      .app-footer a {
-        margin-left: 5px;
-      }
-    `;
+        .footer {
+          grid-column-start: 1;
+          grid-column-end: 11;
+          grid-row-start: 3;
+          grid-row-end: 4;
+          background-color: var(--dkgreen);
+        }
+      `,
+      style,
+    ];
   }
 
   constructor() {
@@ -61,30 +54,11 @@ export class MohaDoro extends LitElement {
 
   render() {
     return html`
-      <main>
-        <div class="logo"><img alt="open-wc logo" src=${logo} /></div>
-        <h1>${this.title}</h1>
-
-        <p>Edit <code>src/MohaDoro.js</code> and save to reload.</p>
-        <a
-          class="app-link"
-          href="https://open-wc.org/guides/developing-components/code-examples/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Code examples
-        </a>
-      </main>
-
-      <p class="app-footer">
-        🚽 Made with love by
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://github.com/open-wc"
-          >open-wc</a
-        >.
-      </p>
+      <div class="container">
+        <doro-nav></doro-nav>
+        <div class="main">main</div>
+        <div class="footer">footer</div>
+      </div>
     `;
   }
 }
