@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import './components/doro-nav.js';
+import './components/doro-timer.js';
 import { style } from './styles.js';
 
 export class MohaDoro extends LitElement {
@@ -56,7 +57,9 @@ export class MohaDoro extends LitElement {
     return html`
       <div class="container">
         <doro-nav></doro-nav>
-        <div class="main">main</div>
+        <div class="main">
+          <doro-timer></doro-timer>
+        </div>
         <div class="footer">footer</div>
       </div>
     `;
