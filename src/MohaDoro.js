@@ -4,12 +4,6 @@ import './components/doro-timer.js';
 import { style } from './styles.js';
 
 export class MohaDoro extends LitElement {
-  static get properties() {
-    return {
-      title: { type: String },
-    };
-  }
-
   static get styles() {
     return [
       css`
@@ -46,11 +40,6 @@ export class MohaDoro extends LitElement {
       `,
       style,
     ];
-  }
-
-  constructor() {
-    super();
-    this.title = 'My app';
   }
 
   render() {

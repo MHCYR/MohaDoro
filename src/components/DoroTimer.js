@@ -17,6 +17,13 @@ export class DoroTimer extends LitElement {
     `;
   }
 
+  constructor() {
+    super();
+    this.duration = 60;
+    this.end = null;
+    this.remaining = 0;
+  }
+
   render() {
     return html`
       <div class="timer-wrapper">
