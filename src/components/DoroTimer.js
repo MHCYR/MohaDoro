@@ -54,6 +54,7 @@ export class DoroTimer extends LitElement {
           ${!this.remaining ? 'Start' : 'Continue'}
         </button>
         <button @click=${this.pause} ?disabled="${!this.running}">Pause</button>
+        <button @click=${this.reset}>Reset</button>
       </div>
     `;
   }
@@ -67,6 +68,12 @@ export class DoroTimer extends LitElement {
   }
 
   pause() {
+    this.running = false;
+  }
+
+  reset() {
+    this.remaining = 0;
+    this.end = null;
     this.running = false;
   }
 
