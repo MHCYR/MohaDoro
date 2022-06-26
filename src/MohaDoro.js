@@ -47,7 +47,7 @@ export class MohaDoro extends LitElement {
       <div class="container">
         <doro-nav></doro-nav>
         <div class="main">
-          <doro-timer></doro-timer>
+          <doro-timer duration="125"></doro-timer>
         </div>
         <div class="footer">footer</div>
       </div>

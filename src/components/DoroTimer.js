@@ -1,5 +1,9 @@
 import { LitElement, html, css } from 'lit';
 
+function pad(value) {
+  return String(value).padStart(2, '0');
+}
+
 export class DoroTimer extends LitElement {
   static get properties() {
     return {
@@ -28,8 +32,8 @@ export class DoroTimer extends LitElement {
 
   render() {
     const { remaining } = this;
-    const sec = Math.floor((remaining / 1000) % 60);
-    const min = Math.floor(remaining / 60000);
+    const sec = pad(Math.floor((remaining / 1000) % 60));
+    const min = pad(Math.floor(remaining / 60000));
     return html`
       <div class="timer-wrapper">
         <h1>${`${min}:${sec}`}</h1>
