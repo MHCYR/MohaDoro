@@ -4,6 +4,16 @@ function pad(value) {
   return String(value).padStart(2, '0');
 }
 
+function parseToSec(val) {
+  const num = Number(val);
+  return pad(Math.floor((num / 1000) % 60));
+}
+
+function parseToMins(val) {
+  const num = Number(val);
+  return pad(Math.floor(num / 60000));
+}
+
 export class DoroTimer extends LitElement {
   static get properties() {
     return {
@@ -24,16 +34,19 @@ export class DoroTimer extends LitElement {
 
   constructor() {
     super();
-    this.duration = 63;
+    this.duration = 60;
     this.end = null;
     this.remaining = 0;
     this.running = false;
   }
 
   render() {
-    const { remaining } = this;
-    const sec = pad(Math.floor((remaining / 1000) % 60));
-    const min = pad(Math.floor(remaining / 60000));
+    const { remaining, duration } = this;
+    const durationMilisec = duration * 1000;
+    const sec = remaining ? parseToSec(remaining) : parseToSec(durationMilisec);
+    const min = remaining
+      ? parseToMins(remaining)
+      : parseToMins(durationMilisec);
     return html`
       <div class="timer-wrapper">
         <h1>${`${min}:${sec}`}</h1>
