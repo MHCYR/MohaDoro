@@ -17,4 +17,9 @@ export const style = css`
     --nav-link: var(--green);
     --nav-link-active: var(--lightgreen);
   }
+
+  doro-timer {
+    font-family: 'Ubuntu Mono', monospace;
+    font-size: 36px;
+  }
 `;
