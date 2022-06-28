@@ -17,4 +17,8 @@ export const style = css`
     --nav-link: var(--green);
     --nav-link-active: var(--lightgreen);
   }
+  doro-footer{
+    --footer-bgcolor: var(--brown);
+    --footer-link: var(--green);
+  }
 `;

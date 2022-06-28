@@ -37,7 +37,7 @@ export class MohaDoro extends LitElement {
           grid-column-end: 11;
           grid-row-start: 3;
           grid-row-end: 4;
-          background-color: var(--dkgreen);
+          min-height: 4vh;
         }
       `,
       style,
