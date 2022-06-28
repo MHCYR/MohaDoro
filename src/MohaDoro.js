@@ -28,6 +28,9 @@ export class MohaDoro extends LitElement {
           grid-row-start: 2;
           grid-row-end: 3;
           background-color: var(--brown);
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
         .footer {
@@ -36,6 +39,13 @@ export class MohaDoro extends LitElement {
           grid-row-start: 3;
           grid-row-end: 4;
           background-color: var(--dkgreen);
+        }
+
+        @media (max-width: 400px) {
+          .main {
+            grid-column-start: 2;
+            grid-column-end: 10;
+          }
         }
       `,
       style,

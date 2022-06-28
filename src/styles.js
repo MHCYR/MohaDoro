@@ -8,6 +8,16 @@ export const style = css`
     --green: #6c8c64;
     --lightgreen: #7ca668;
   }
+  html {
+    box-sizing: border-box;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+  }
+
   body {
     background-color: var(--black);
   }
@@ -20,6 +30,5 @@ export const style = css`
 
   doro-timer {
     font-family: 'Ubuntu Mono', monospace;
-    font-size: 36px;
   }
 `;

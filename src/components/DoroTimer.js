@@ -26,8 +26,29 @@ export class DoroTimer extends LitElement {
 
   static get styles() {
     return css`
+      h1 {
+        font-size: 10rem;
+      }
       .timer-wrapper {
-        background-color: blue;
+        display: flex;
+      }
+      /* MOBILE */
+      @media (max-width: 400px) {
+        .timer-wrapper {
+          display: flex;
+          flex-flow: row wrap;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .countdown {
+          flex-basis: 100%;
+        }
+
+        .countdown h1 {
+          font-size: 6em;
+          text-align: center;
+        }
       }
     `;
   }
@@ -49,12 +70,18 @@ export class DoroTimer extends LitElement {
       : parseToMins(durationMilisec);
     return html`
       <div class="timer-wrapper">
-        <h1>${`${min}:${sec}`}</h1>
-        <button @click=${this.start} ?disabled="${this.running}">
-          ${!this.remaining ? 'Start' : 'Continue'}
-        </button>
-        <button @click=${this.pause} ?disabled="${!this.running}">Pause</button>
-        <button @click=${this.reset}>Reset</button>
+        <div class="countdown">
+          <h1>${`${min}:${sec}`}</h1>
+        </div>
+        <div class="buttons">
+          <button @click=${this.start} ?disabled="${this.running}">
+            ${!this.remaining ? 'Start' : 'Continue'}
+          </button>
+          <button @click=${this.pause} ?disabled="${!this.running}">
+            Pause
+          </button>
+          <button @click=${this.reset}>Reset</button>
+        </div>
       </div>
     `;
   }
