@@ -21,4 +21,8 @@ export const style = css`
     --footer-bgcolor: var(--brown);
     --footer-link: var(--green);
   }
+  doro-timer {
+    font-family: 'Ubuntu Mono', monospace;
+    font-size: 36px;
+  }
 `;
