@@ -4,6 +4,12 @@ import './components/doro-timer.js';
 import { style } from './styles.js';
 
 export class MohaDoro extends LitElement {
+  static get properties() {
+    return {
+      duration: { state: true },
+    };
+  }
+
   static get styles() {
     return [
       css`
@@ -51,13 +57,28 @@ export class MohaDoro extends LitElement {
     ];
   }
 
+  constructor() {
+    super();
+    this.duration = 1500;
+  }
+
   render() {
     return html`
       <div class="container">
         <doro-nav></doro-nav>
-        <doro-timer duration="123"></doro-timer>
+        <doro-timer duration="${this.duration}"></doro-timer>
+        <button @click=${this.addMins}>+5min</button>
+        <button @click=${this.substractMins}>-5min</button>
         <div class="footer">footer</div>
       </div>
     `;
+  }
+
+  addMins() {
+    this.duration += 300;
+  }
+
+  substractMins() {
+    if (this.duration > 300) this.duration -= 300;
   }
 }
