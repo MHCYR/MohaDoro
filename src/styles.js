@@ -30,5 +30,7 @@ export const style = css`
 
   doro-timer {
     font-family: 'Ubuntu Mono', monospace;
+    --btns-bgcolor: var(--dkgreen);
+    --btns-hover-bgcolor: var(--lightgreen);
   }
 `;

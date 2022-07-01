@@ -29,6 +29,26 @@ export class DoroTimer extends LitElement {
       h1 {
         font-size: 10rem;
       }
+
+      button {
+        background-color: var(--btns-bgcolor);
+        border: none;
+        padding: 1em 1.5em;
+        border-radius: 10%;
+        color: white;
+      }
+
+      button:hover {
+        background-color: var(--btns-hover-bgcolor);
+      }
+
+      button:disabled,
+      button[disabled] button:hover {
+        opacity: 0.5;
+        cursor: not-allowed;
+        background-color: var(--btns-bgcolor);
+      }
+
       .timer-wrapper {
         display: flex;
       }
@@ -48,6 +68,12 @@ export class DoroTimer extends LitElement {
         .countdown h1 {
           font-size: 6em;
           text-align: center;
+        }
+
+        .buttons {
+          flex-basis: 100%;
+          display: flex;
+          justify-content: space-around;
         }
       }
     `;
