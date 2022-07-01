@@ -81,6 +81,7 @@ export class DoroTimer extends LitElement {
         .buttons {
           flex-basis: 100%;
           display: flex;
+          flex-direction: row;
           justify-content: space-around;
         }
       }
