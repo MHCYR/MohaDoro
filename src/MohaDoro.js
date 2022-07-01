@@ -22,12 +22,11 @@ export class MohaDoro extends LitElement {
           grid-row-start: 1;
           grid-row-end: 2;
         }
-        .main {
+        doro-timer {
           grid-column-start: 3;
           grid-column-end: 9;
           grid-row-start: 2;
           grid-row-end: 3;
-          background-color: var(--brown);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -56,9 +55,7 @@ export class MohaDoro extends LitElement {
     return html`
       <div class="container">
         <doro-nav></doro-nav>
-        <div class="main">
-          <doro-timer duration="125"></doro-timer>
-        </div>
+        <doro-timer duration="123"></doro-timer>
         <div class="footer">footer</div>
       </div>
     `;

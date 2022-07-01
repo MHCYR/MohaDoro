@@ -51,6 +51,14 @@ export class DoroTimer extends LitElement {
 
       .timer-wrapper {
         display: flex;
+        align-items: center;
+        gap: 2em;
+      }
+
+      .buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
       }
       /* MOBILE */
       @media (max-width: 400px) {
