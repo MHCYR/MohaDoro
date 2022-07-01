@@ -1,14 +1,9 @@
 import { LitElement, html, css } from 'lit';
 import './components/doro-nav.js';
+import './components/doro-timer.js';
 import { style } from './styles.js';
 
 export class MohaDoro extends LitElement {
-  static get properties() {
-    return {
-      title: { type: String },
-    };
-  }
-
   static get styles() {
     return [
       css`
@@ -27,12 +22,14 @@ export class MohaDoro extends LitElement {
           grid-row-start: 1;
           grid-row-end: 2;
         }
-        .main {
+        doro-timer {
           grid-column-start: 3;
           grid-column-end: 9;
           grid-row-start: 2;
           grid-row-end: 3;
-          background-color: var(--brown);
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
         .footer {
@@ -42,21 +39,23 @@ export class MohaDoro extends LitElement {
           grid-row-end: 4;
           background-color: var(--dkgreen);
         }
+
+        @media (max-width: 400px) {
+          .main {
+            grid-column-start: 2;
+            grid-column-end: 10;
+          }
+        }
       `,
       style,
     ];
-  }
-
-  constructor() {
-    super();
-    this.title = 'My app';
   }
 
   render() {
     return html`
       <div class="container">
         <doro-nav></doro-nav>
-        <div class="main">main</div>
+        <doro-timer duration="123"></doro-timer>
         <div class="footer">footer</div>
       </div>
     `;

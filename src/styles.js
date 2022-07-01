@@ -8,6 +8,16 @@ export const style = css`
     --green: #6c8c64;
     --lightgreen: #7ca668;
   }
+  html {
+    box-sizing: border-box;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+  }
+
   body {
     background-color: var(--black);
   }
@@ -16,5 +26,11 @@ export const style = css`
     --nav-bgcolor: var(--black);
     --nav-link: var(--green);
     --nav-link-active: var(--lightgreen);
+  }
+
+  doro-timer {
+    font-family: 'Ubuntu Mono', monospace;
+    --btns-bgcolor: var(--dkgreen);
+    --btns-hover-bgcolor: var(--lightgreen);
   }
 `;

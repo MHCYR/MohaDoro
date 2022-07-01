@@ -1,12 +1,6 @@
 import { LitElement, html, css } from 'lit';
 
 export class DoroNav extends LitElement {
-  static get properties() {
-    return {
-      title: { type: String },
-    };
-  }
-
   static get styles() {
     return css`
       nav {
@@ -37,11 +31,6 @@ export class DoroNav extends LitElement {
         text-decoration: none;
       }
     `;
-  }
-
-  constructor() {
-    super();
-    this.title = 'My app';
   }
 
   render() {
