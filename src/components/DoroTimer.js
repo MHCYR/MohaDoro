@@ -34,7 +34,7 @@ export class DoroTimer extends LitElement {
         background-color: var(--btns-bgcolor);
         border: none;
         padding: 1em 1.5em;
-        border-radius: 10%;
+        border-radius: 15px;
         color: white;
       }
 

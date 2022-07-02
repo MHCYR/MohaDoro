@@ -46,6 +46,33 @@ export class MohaDoro extends LitElement {
           background-color: var(--dkgreen);
         }
 
+        .buttons-wrapper {
+          grid-column-start: 2;
+          grid-column-end: 3;
+          grid-row-start: 2;
+          grid-row-end: 3;
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+          gap: 15px;
+        }
+
+        button {
+          border-radius: 50%;
+          width: 50px;
+          height: 50px;
+          padding: 0;
+          color: #56735a;
+          border: none;
+          font-size: 25px;
+          font-weight: 700;
+        }
+
+        button:hover {
+          color: white;
+          background-color: #6c8c64;
+        }
+
         @media (max-width: 400px) {
           .main {
             grid-column-start: 2;
@@ -67,8 +94,10 @@ export class MohaDoro extends LitElement {
       <div class="container">
         <doro-nav></doro-nav>
         <doro-timer duration="${this.duration}"></doro-timer>
-        <button @click=${this.addMins}>+5min</button>
-        <button @click=${this.substractMins}>-5min</button>
+        <div class="buttons-wrapper">
+          <button @click=${this.addMins}>+</button>
+          <button @click=${this.substractMins}>-</button>
+        </div>
         <div class="footer">footer</div>
       </div>
     `;
