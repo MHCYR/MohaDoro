@@ -142,12 +142,18 @@ export class DoroTimer extends LitElement {
   }
 
   tick() {
-    if (this.running) {
+    if (this.running && !this.finished) {
       this.remaining = this.end - Date.now();
       requestAnimationFrame(() => {
         this.tick();
       });
+    } else if (this.finished) {
+      this.pause();
     }
+  }
+
+  get finished() {
+    return this.end < Date.now();
   }
 
   connectedCallback() {
