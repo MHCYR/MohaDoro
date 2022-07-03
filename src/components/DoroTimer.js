@@ -28,13 +28,14 @@ export class DoroTimer extends LitElement {
     return css`
       h1 {
         font-size: 10rem;
+        margin: 0;
       }
 
       button {
         background-color: var(--btns-bgcolor);
         border: none;
         padding: 1em 1.5em;
-        border-radius: 15px;
+        border-radius: 10px;
         color: white;
       }
 
@@ -61,12 +62,13 @@ export class DoroTimer extends LitElement {
         gap: 15px;
       }
       /* MOBILE */
-      @media (max-width: 400px) {
+      @media (max-width: 450px) {
         .timer-wrapper {
           display: flex;
           flex-flow: row wrap;
           align-items: center;
           justify-content: center;
+          gap: 0;
         }
 
         .countdown {

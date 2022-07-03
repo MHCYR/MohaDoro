@@ -28,7 +28,8 @@ export class MohaDoro extends LitElement {
           grid-row-start: 1;
           grid-row-end: 2;
         }
-        doro-timer {
+
+        .main {
           grid-column-start: 3;
           grid-column-end: 9;
           grid-row-start: 2;
@@ -36,6 +37,7 @@ export class MohaDoro extends LitElement {
           display: flex;
           align-items: center;
           justify-content: center;
+          gap: 2em;
         }
 
         .footer {
@@ -73,10 +75,15 @@ export class MohaDoro extends LitElement {
           background-color: #6c8c64;
         }
 
-        @media (max-width: 400px) {
+        @media (max-width: 450px) {
           .main {
             grid-column-start: 2;
             grid-column-end: 10;
+            gap: 15px;
+          }
+
+          .buttons-wrapper {
+            margin-top: 10px;
           }
         }
       `,
@@ -93,10 +100,12 @@ export class MohaDoro extends LitElement {
     return html`
       <div class="container">
         <doro-nav></doro-nav>
-        <doro-timer duration="${this.duration}"></doro-timer>
-        <div class="buttons-wrapper">
-          <button @click=${this.addMins}>+</button>
-          <button @click=${this.substractMins}>-</button>
+        <div class="main">
+          <div class="buttons-wrapper">
+            <button @click=${this.addMins}>+</button>
+            <button @click=${this.substractMins}>-</button>
+          </div>
+          <doro-timer duration="${this.duration}"></doro-timer>
         </div>
         <div class="footer">footer</div>
       </div>
