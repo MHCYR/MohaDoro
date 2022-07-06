@@ -21,6 +21,7 @@ export class DoroTimer extends LitElement {
       end: { state: true },
       remaining: { state: true },
       running: { state: true },
+      hasEnded: { state: true },
     };
   }
 
@@ -32,6 +33,7 @@ export class DoroTimer extends LitElement {
       }
 
       button {
+        width: 95px;
         background-color: var(--btns-bgcolor);
         border: none;
         padding: 1em 1.5em;
@@ -96,6 +98,7 @@ export class DoroTimer extends LitElement {
     this.end = null;
     this.remaining = 0;
     this.running = false;
+    this.hasEnded = false;
   }
 
   render() {
@@ -111,7 +114,11 @@ export class DoroTimer extends LitElement {
           <h1>${`${min}:${sec}`}</h1>
         </div>
         <div class="buttons">
-          <button @click=${this.start} ?disabled="${this.running}">
+          <button
+            @click=${this.start}
+            ?disabled="${this.running}"
+            ?hidden="${this.hasEnded}"
+          >
             ${!this.remaining ? 'Start' : 'Continue'}
           </button>
           <button @click=${this.pause} ?disabled="${!this.running}">
@@ -124,6 +131,7 @@ export class DoroTimer extends LitElement {
   }
 
   start() {
+    this.hasEnded = false;
     this.running = true;
     this.end = this.end
       ? Date.now() + this.remaining
@@ -132,22 +140,31 @@ export class DoroTimer extends LitElement {
   }
 
   pause() {
+    this.hasEnded = false;
     this.running = false;
   }
 
   reset() {
+    this.hasEnded = false;
+    this.pause();
     this.remaining = 0;
     this.end = null;
-    this.running = false;
   }
 
   tick() {
-    if (this.running) {
+    if (this.running && !this.finished) {
       this.remaining = this.end - Date.now();
       requestAnimationFrame(() => {
         this.tick();
       });
+    } else if (this.finished) {
+      this.hasEnded = true;
+      this.pause();
     }
+  }
+
+  get finished() {
+    return this.end < Date.now();
   }
 
   connectedCallback() {
