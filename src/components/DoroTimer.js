@@ -21,6 +21,7 @@ export class DoroTimer extends LitElement {
       end: { state: true },
       remaining: { state: true },
       running: { state: true },
+      hasEnded: { state: true },
     };
   }
 
@@ -96,6 +97,7 @@ export class DoroTimer extends LitElement {
     this.end = null;
     this.remaining = 0;
     this.running = false;
+    this.hasEnded = false;
   }
 
   render() {
@@ -111,7 +113,10 @@ export class DoroTimer extends LitElement {
           <h1>${`${min}:${sec}`}</h1>
         </div>
         <div class="buttons">
-          <button @click=${this.start} ?disabled="${this.running}">
+          <button
+            @click=${this.start}
+            ?disabled="${this.running || this.hasEnded}"
+          >
             ${!this.remaining ? 'Start' : 'Continue'}
           </button>
           <button @click=${this.pause} ?disabled="${!this.running}">
@@ -124,6 +129,7 @@ export class DoroTimer extends LitElement {
   }
 
   start() {
+    this.hasEnded = false;
     this.running = true;
     this.end = this.end
       ? Date.now() + this.remaining
@@ -136,6 +142,7 @@ export class DoroTimer extends LitElement {
   }
 
   reset() {
+    this.hasEnded = false;
     this.remaining = 0;
     this.end = null;
     this.running = false;
@@ -149,11 +156,15 @@ export class DoroTimer extends LitElement {
       });
     } else if (this.finished) {
       this.pause();
+      this.hasEnded = true;
     }
   }
 
   get finished() {
-    return this.end < Date.now();
+    if (this.running) {
+      return this.end < Date.now();
+    }
+    return false;
   }
 
   connectedCallback() {
