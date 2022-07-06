@@ -161,10 +161,7 @@ export class DoroTimer extends LitElement {
   }
 
   get finished() {
-    if (this.running) {
-      return this.end < Date.now();
-    }
-    return false;
+    return this.end < Date.now();
   }
 
   connectedCallback() {

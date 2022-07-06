@@ -93,7 +93,7 @@ export class MohaDoro extends LitElement {
 
   constructor() {
     super();
-    this.duration = 3;
+    this.duration = 1500;
   }
 
   render() {
