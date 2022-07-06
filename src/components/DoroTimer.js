@@ -33,6 +33,7 @@ export class DoroTimer extends LitElement {
       }
 
       button {
+        width: 95px;
         background-color: var(--btns-bgcolor);
         border: none;
         padding: 1em 1.5em;
@@ -115,7 +116,8 @@ export class DoroTimer extends LitElement {
         <div class="buttons">
           <button
             @click=${this.start}
-            ?disabled="${this.running || this.hasEnded}"
+            ?disabled="${this.running}"
+            ?hidden="${this.hasEnded}"
           >
             ${!this.remaining ? 'Start' : 'Continue'}
           </button>
@@ -138,14 +140,15 @@ export class DoroTimer extends LitElement {
   }
 
   pause() {
+    this.hasEnded = false;
     this.running = false;
   }
 
   reset() {
     this.hasEnded = false;
+    this.pause();
     this.remaining = 0;
     this.end = null;
-    this.running = false;
   }
 
   tick() {
@@ -155,8 +158,8 @@ export class DoroTimer extends LitElement {
         this.tick();
       });
     } else if (this.finished) {
-      this.pause();
       this.hasEnded = true;
+      this.pause();
     }
   }
 
