@@ -22,6 +22,7 @@ export class DoroTimer extends LitElement {
       remaining: { state: true },
       running: { state: true },
       hasEnded: { state: true },
+      countdown: { state: true },
     };
   }
 
@@ -94,36 +95,25 @@ export class DoroTimer extends LitElement {
 
   constructor() {
     super();
-    this.duration = 60;
+    this.duration = 3000;
     this.end = null;
-    this.remaining = 0;
+    this.remaining = this.duration;
     this.running = false;
     this.hasEnded = false;
   }
 
   render() {
-    const { remaining, duration } = this;
-    const durationMilisec = duration * 1000;
-    const sec = remaining ? parseToSec(remaining) : parseToSec(durationMilisec);
-    const min = remaining
-      ? parseToMins(remaining)
-      : parseToMins(durationMilisec);
+    const { remaining } = this;
+    const sec = parseToSec(remaining);
+    const min = parseToMins(remaining);
     return html`
       <div class="timer-wrapper">
         <div class="countdown">
           <h1>${`${min}:${sec}`}</h1>
         </div>
         <div class="buttons">
-          <button
-            @click=${this.start}
-            ?disabled="${this.running}"
-            ?hidden="${this.hasEnded}"
-          >
-            ${!this.remaining ? 'Start' : 'Continue'}
-          </button>
-          <button @click=${this.pause} ?disabled="${!this.running}">
-            Pause
-          </button>
+          <button @click=${this.start}>Start</button>
+          <button @click=${this.pause}>Pause</button>
           <button @click=${this.reset}>Reset</button>
         </div>
       </div>
@@ -131,40 +121,17 @@ export class DoroTimer extends LitElement {
   }
 
   start() {
-    this.hasEnded = false;
-    this.running = true;
-    this.end = this.end
-      ? Date.now() + this.remaining
-      : Date.now() + this.duration * 1000;
-    this.tick();
+    this.countdown = setInterval(() => {
+      this.remaining -= 1000;
+    }, 1000);
   }
 
   pause() {
-    this.hasEnded = false;
-    this.running = false;
+    clearInterval(this.countdown);
   }
 
   reset() {
-    this.hasEnded = false;
-    this.pause();
-    this.remaining = 0;
-    this.end = null;
-  }
-
-  tick() {
-    if (this.running && !this.finished) {
-      this.remaining = this.end - Date.now();
-      requestAnimationFrame(() => {
-        this.tick();
-      });
-    } else if (this.finished) {
-      this.hasEnded = true;
-      this.pause();
-    }
-  }
-
-  get finished() {
-    return this.end < Date.now();
+    this.remaining = this.duration;
   }
 
   connectedCallback() {

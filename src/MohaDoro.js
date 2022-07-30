@@ -93,7 +93,7 @@ export class MohaDoro extends LitElement {
 
   constructor() {
     super();
-    this.duration = 1500;
+    this.duration = 3;
   }
 
   render() {
@@ -105,7 +105,7 @@ export class MohaDoro extends LitElement {
             <button @click=${this.addMins}>+</button>
             <button @click=${this.substractMins}>-</button>
           </div>
-          <doro-timer duration="${this.duration}"></doro-timer>
+          <doro-timer></doro-timer>
         </div>
         <div class="footer">footer</div>
       </div>
