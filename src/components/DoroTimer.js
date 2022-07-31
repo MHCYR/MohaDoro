@@ -18,11 +18,14 @@ export class DoroTimer extends LitElement {
   static get properties() {
     return {
       duration: {},
-      end: { state: true },
-      remaining: { state: true },
+      remaining: {
+        state: true,
+      },
       running: { state: true },
-      hasEnded: { state: true },
       countdown: { state: true },
+      finished: {
+        state: true,
+      },
     };
   }
 
@@ -96,10 +99,8 @@ export class DoroTimer extends LitElement {
   constructor() {
     super();
     this.duration = 3000;
-    this.end = null;
     this.remaining = this.duration;
     this.running = false;
-    this.hasEnded = false;
   }
 
   render() {
@@ -112,8 +113,18 @@ export class DoroTimer extends LitElement {
           <h1>${`${min}:${sec}`}</h1>
         </div>
         <div class="buttons">
-          <button @click=${this.start}>Start</button>
-          <button @click=${this.pause}>Pause</button>
+          <button
+            @click=${this.start}
+            ?disabled=${this.running || this.finished}
+          >
+            Start
+          </button>
+          <button
+            @click=${this.pause}
+            ?disabled=${!this.running || this.finished}
+          >
+            Pause
+          </button>
           <button @click=${this.reset}>Reset</button>
         </div>
       </div>
@@ -121,17 +132,26 @@ export class DoroTimer extends LitElement {
   }
 
   start() {
+    this.running = true;
     this.countdown = setInterval(() => {
       this.remaining -= 1000;
     }, 1000);
   }
 
   pause() {
+    this.running = false;
     clearInterval(this.countdown);
   }
 
   reset() {
+    clearInterval(this.countdown);
     this.remaining = this.duration;
+    this.running = false;
+  }
+
+  get finished() {
+    if (this.remaining <= 0) clearInterval(this.countdown);
+    return this.remaining <= 0;
   }
 
   connectedCallback() {
