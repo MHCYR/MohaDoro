@@ -67,6 +67,23 @@ export class DoroTimer extends LitElement {
         flex-direction: column;
         gap: 15px;
       }
+      .countdown {
+        padding: 0 1em;
+        border: solid 5px transparent;
+        border-radius: 15px;
+      }
+      .border-red {
+        border: solid 5px red;
+        border-radius: 15px;
+      }
+      .border-green {
+        border: solid 5px green;
+        border-radius: 15px;
+      }
+      .border-orange {
+        border: solid 5px orange;
+        border-radius: 15px;
+      }
       /* MOBILE */
       @media (max-width: 450px) {
         .timer-wrapper {
@@ -79,6 +96,7 @@ export class DoroTimer extends LitElement {
 
         .countdown {
           flex-basis: 100%;
+          margin-bot: 1em;
         }
 
         .countdown h1 {
@@ -98,18 +116,21 @@ export class DoroTimer extends LitElement {
 
   constructor() {
     super();
-    this.duration = 3000;
+    // TODO: convert duration from seconds to miliseconds
+    this.duration = 300;
     this.remaining = this.duration;
     this.running = false;
   }
 
   render() {
     const { remaining } = this;
-    const sec = parseToSec(remaining);
-    const min = parseToMins(remaining);
+    const remainingToMilisec = remaining * 1000;
+    const sec = parseToSec(remainingToMilisec);
+    const min = parseToMins(remainingToMilisec);
+    const currClass = this.setClass();
     return html`
-      <div class="timer-wrapper">
-        <div class="countdown">
+      <div class="timer-wrapper ">
+        <div class="countdown ${currClass}">
           <h1>${`${min}:${sec}`}</h1>
         </div>
         <div class="buttons">
@@ -134,7 +155,7 @@ export class DoroTimer extends LitElement {
   start() {
     this.running = true;
     this.countdown = setInterval(() => {
-      this.remaining -= 1000;
+      this.remaining -= 1;
     }, 1000);
   }
 
@@ -149,12 +170,27 @@ export class DoroTimer extends LitElement {
     this.running = false;
   }
 
+  setClass() {
+    const classes = {
+      running: 'border-green',
+      finished: 'border-red',
+      paused: 'border-orange',
+    };
+
+    if (this.finished) {
+      return classes.finished;
+    }
+    if (this.running) {
+      return classes.running;
+    }
+    if (this.remaining > 0 && this.remaining < Number(this.duration)) {
+      return classes.paused;
+    }
+    return '';
+  }
+
   get finished() {
     if (this.remaining <= 0) clearInterval(this.countdown);
     return this.remaining <= 0;
-  }
-
-  connectedCallback() {
-    super.connectedCallback();
   }
 }
