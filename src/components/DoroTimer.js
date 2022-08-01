@@ -117,8 +117,8 @@ export class DoroTimer extends LitElement {
   constructor() {
     super();
     // TODO: convert duration from seconds to miliseconds
-    this.duration = 300;
-    this.remaining = this.duration;
+    // this.duration = 300;
+    // this.remaining = this.duration;
     this.running = false;
   }
 
@@ -150,6 +150,13 @@ export class DoroTimer extends LitElement {
         </div>
       </div>
     `;
+  }
+
+  attributeChangedCallback(name, _old, value) {
+    if (name === 'duration') {
+      this.remaining = Number(value);
+      this.duration = Number(value);
+    }
   }
 
   start() {
