@@ -96,7 +96,7 @@ export class DoroTimer extends LitElement {
 
         .countdown {
           flex-basis: 100%;
-          margin-bot: 1em;
+          margin-bottom: 1em;
         }
 
         .countdown h1 {
