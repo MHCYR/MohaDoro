@@ -11,7 +11,7 @@ practice time management using JavaScript and start using NeoVim.
 
 ## Quickstart
 
-Be sure to have [Node.js] (https://nodejs.org/es/) and npm installed before
+Be sure to have [Node.js](https://nodejs.org/es/) and npm installed before
 start.
 
 To get started:
