@@ -18,10 +18,14 @@ export class DoroTimer extends LitElement {
   static get properties() {
     return {
       duration: {},
-      end: { state: true },
-      remaining: { state: true },
+      remaining: {
+        state: true,
+      },
       running: { state: true },
-      hasEnded: { state: true },
+      countdown: { state: true },
+      finished: {
+        state: true,
+      },
     };
   }
 
@@ -63,6 +67,23 @@ export class DoroTimer extends LitElement {
         flex-direction: column;
         gap: 15px;
       }
+      .countdown {
+        padding: 0 1em;
+        border: solid 5px transparent;
+        border-radius: 15px;
+      }
+      .border-red {
+        border: solid 5px red;
+        border-radius: 15px;
+      }
+      .border-green {
+        border: solid 5px green;
+        border-radius: 15px;
+      }
+      .border-orange {
+        border: solid 5px orange;
+        border-radius: 15px;
+      }
       /* MOBILE */
       @media (max-width: 450px) {
         .timer-wrapper {
@@ -75,6 +96,7 @@ export class DoroTimer extends LitElement {
 
         .countdown {
           flex-basis: 100%;
+          margin-bot: 1em;
         }
 
         .countdown h1 {
@@ -94,34 +116,34 @@ export class DoroTimer extends LitElement {
 
   constructor() {
     super();
-    this.duration = 60;
-    this.end = null;
-    this.remaining = 0;
+    // TODO: convert duration from seconds to miliseconds
+    // this.duration = 300;
+    // this.remaining = this.duration;
     this.running = false;
-    this.hasEnded = false;
   }
 
   render() {
-    const { remaining, duration } = this;
-    const durationMilisec = duration * 1000;
-    const sec = remaining ? parseToSec(remaining) : parseToSec(durationMilisec);
-    const min = remaining
-      ? parseToMins(remaining)
-      : parseToMins(durationMilisec);
+    const { remaining } = this;
+    const remainingToMilisec = remaining * 1000;
+    const sec = parseToSec(remainingToMilisec);
+    const min = parseToMins(remainingToMilisec);
+    const currClass = this.setClass();
     return html`
-      <div class="timer-wrapper">
-        <div class="countdown">
+      <div class="timer-wrapper ">
+        <div class="countdown ${currClass}">
           <h1>${`${min}:${sec}`}</h1>
         </div>
         <div class="buttons">
           <button
             @click=${this.start}
-            ?disabled="${this.running}"
-            ?hidden="${this.hasEnded}"
+            ?disabled=${this.running || this.finished}
           >
-            ${!this.remaining ? 'Start' : 'Continue'}
+            Start
           </button>
-          <button @click=${this.pause} ?disabled="${!this.running}">
+          <button
+            @click=${this.pause}
+            ?disabled=${!this.running || this.finished}
+          >
             Pause
           </button>
           <button @click=${this.reset}>Reset</button>
@@ -130,44 +152,52 @@ export class DoroTimer extends LitElement {
     `;
   }
 
-  start() {
-    this.hasEnded = false;
-    this.running = true;
-    this.end = this.end
-      ? Date.now() + this.remaining
-      : Date.now() + this.duration * 1000;
-    this.tick();
-  }
-
-  pause() {
-    this.hasEnded = false;
-    this.running = false;
-  }
-
-  reset() {
-    this.hasEnded = false;
-    this.pause();
-    this.remaining = 0;
-    this.end = null;
-  }
-
-  tick() {
-    if (this.running && !this.finished) {
-      this.remaining = this.end - Date.now();
-      requestAnimationFrame(() => {
-        this.tick();
-      });
-    } else if (this.finished) {
-      this.hasEnded = true;
-      this.pause();
+  attributeChangedCallback(name, _old, value) {
+    if (name === 'duration') {
+      this.remaining = Number(value);
+      this.duration = Number(value);
     }
   }
 
-  get finished() {
-    return this.end < Date.now();
+  start() {
+    this.running = true;
+    this.countdown = setInterval(() => {
+      this.remaining -= 1;
+    }, 1000);
   }
 
-  connectedCallback() {
-    super.connectedCallback();
+  pause() {
+    this.running = false;
+    clearInterval(this.countdown);
+  }
+
+  reset() {
+    clearInterval(this.countdown);
+    this.remaining = this.duration;
+    this.running = false;
+  }
+
+  setClass() {
+    const classes = {
+      running: 'border-green',
+      finished: 'border-red',
+      paused: 'border-orange',
+    };
+
+    if (this.finished) {
+      return classes.finished;
+    }
+    if (this.running) {
+      return classes.running;
+    }
+    if (this.remaining > 0 && this.remaining < Number(this.duration)) {
+      return classes.paused;
+    }
+    return '';
+  }
+
+  get finished() {
+    if (this.remaining <= 0) clearInterval(this.countdown);
+    return this.remaining <= 0;
   }
 }
