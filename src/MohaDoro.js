@@ -45,7 +45,8 @@ export class MohaDoro extends LitElement {
           grid-column-end: 11;
           grid-row-start: 3;
           grid-row-end: 4;
-          background-color: var(--dkgreen);
+          /* background-color: var(--dkgreen); */
+          text-align: center;
         }
 
         .buttons-wrapper {
@@ -107,7 +108,7 @@ export class MohaDoro extends LitElement {
           </div>
           <doro-timer duration=${this.duration}></doro-timer>
         </div>
-        <div class="footer">footer</div>
+        <footer class="footer">Copyright © 2022 MHCYR</footer>
       </div>
     `;
   }
