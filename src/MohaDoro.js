@@ -80,11 +80,13 @@ export class MohaDoro extends LitElement {
           .main {
             grid-column-start: 2;
             grid-column-end: 10;
-            gap: 15px;
+            flex-direction: column;
           }
 
           .buttons-wrapper {
             margin-top: 10px;
+            flex-direction: row-reverse;
+            gap: 25px;
           }
         }
       `,
